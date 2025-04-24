@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hashify Super Simple Player</title>
+    <style>
+        body { 
+            background: #121212; 
+            color: white; 
+            font-family: Arial; 
+            text-align: center;
+            padding: 20px;
+        }
+        button {
+            background: #1DB954;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .player {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #282828;
+            padding: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="player">
+        <h1>Hashify Simple Player</h1>
+        <p>Current song: <span id="song-name">Song 1</span></p>
+        <audio id="audio-player" controls style="width: 100%; margin: 20px 0;"></audio>
+        <div>
+            <button onclick="prevSong()">⏮️ Previous</button>
+            <button onclick="playPause()">▶️ Play</button>
+            <button onclick="nextSong()">⏭️ Next</button>
+        </div>
+    </div>
+
+    <script>
+        const songs = [
+            { name: "Warriyo - Mortals [NCS Release]", path: "/songs/1.mp3" },
+            { name: "Cielo - Huma-Huma", path: "/songs/2.mp3" },
+            { name: "DEAF KEV - Invincible [NCS Release]", path: "/songs/3.mp3" },
+            { name: "Different Heaven & EH!DE - My Heart", path: "/songs/4.mp3" },
+            { name: "Janji-Heroes-Tonight-feat-Johnning", path: "/songs/5.mp3" }
+        ];
+        
+        let currentSong = 0;
+        const audioPlayer = document.getElementById('audio-player');
+        const songName = document.getElementById('song-name');
+        
+        // Load the first song
+        function loadSong(index) {
+            audioPlayer.src = songs[index].path;
+            songName.textContent = songs[index].name;
+        }
+        
+        function playPause() {
+            if (audioPlayer.paused) {
+                audioPlayer.play();
+            } else {
+                audioPlayer.pause();
+            }
+        }
+        
+        function nextSong() {
+            currentSong = (currentSong + 1) % songs.length;
+            loadSong(currentSong);
+            audioPlayer.play();
+        }
+        
+        function prevSong() {
+            currentSong = (currentSong - 1 + songs.length) % songs.length;
+            loadSong(currentSong);
+            audioPlayer.play();
+        }
+        
+        // Initialize
+        loadSong(currentSong);
+    </script>
+</body>
+</html>

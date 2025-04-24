@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search - Hashify</title>
+    <link rel="stylesheet" href="style_new.css">
+    <link rel="icon" href="logo.png" type="image/png">
+    <style>
+        .search-header {
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+        
+        .search-input-container {
+            max-width: 580px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 14px 45px;
+            border-radius: 30px;
+            border: none;
+            background-color: #fff;
+            font-size: 16px;
+            color: #333;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .search-input:focus {
+            outline: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #333;
+            font-size: 18px;
+        }
+        
+        .clear-button {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #777;
+            font-size: 16px;
+            display: none;
+        }
+        
+        .clear-button.visible {
+            display: block;
+        }
+        
+        .search-filters {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .filter-button {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 8px 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .filter-button:hover, .filter-button.active {
+            background-color: #1DB954;
+            color: #121212;
+        }
+        
+        .search-results {
+            margin-top: 40px;
+        }
+        
+        .no-results {
+            text-align: center;
+            color: #b3b3b3;
+            margin-top: 50px;
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 24px;
+        }
+        
+        .result-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .result-card:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+        
+        .result-card img {
+            width: 160px;
+            height: 160px;
+            border-radius: 8px;
+            object-fit: cover;
+            margin-bottom: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+        
+        .result-card h3 {
+            margin: 0 0 5px 0;
+            color: white;
+            font-size: 16px;
+        }
+        
+        .result-card p {
+            margin: 0;
+            color: #b3b3b3;
+            font-size: 14px;
+        }
+        
+        .result-card .play-button {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: #1DB954;
+            color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: all 0.3s;
+            transform: translateY(10px);
+        }
+        
+        .result-card:hover .play-button {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .section-title {
+            color: white;
+            margin: 40px 0 20px 0;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li class="brand"><img src="logo.png" alt="Hashify"> Hashify</li>
+            <li><a href="/" class="nav-link">Home</a></li>
+            <li><a href="/search.html" class="nav-link active">Search</a></li>
+            <li><a href="#" class="nav-link">Library</a></li>
+            <li id="user-profile" class="user-profile">
+                <a href="login.html" class="nav-link login-link">Log In</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="sidebar">
+            <div class="sidebar-section">
+                <h3>YOUR LIBRARY</h3>
+                <ul class="sidebar-menu">
+                    <li><a href="#"><i class="fas fa-clock"></i> Recently Played</a></li>
+                    <li><a href="#"><i class="fas fa-heart"></i> Liked Songs</a></li>
+                    <li><a href="#"><i class="fas fa-list"></i> Your Playlists</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>PLAYLISTS</h3>
+                <ul class="playlist-menu" id="playlist-menu">
+                    <!-- Playlists will be added here -->
+                </ul>
+                <button id="create-playlist" class="create-playlist-btn">
+                    <i class="fas fa-plus"></i> Create Playlist
+                </button>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="search-header">
+                <div class="search-input-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="What do you want to listen to?" id="search-input">
+                    <button class="clear-button" id="clear-button"><i class="fas fa-times"></i></button>
+                </div>
+                
+                <div class="search-filters">
+                    <button class="filter-button active" data-filter="all">All</button>
+                    <button class="filter-button" data-filter="songs">Songs</button>
+                    <button class="filter-button" data-filter="artists">Artists</button>
+                    <button class="filter-button" data-filter="playlists">Playlists</button>
+                </div>
+            </div>
+            
+            <div class="search-results" id="search-results">
+                <!-- Results will be dynamically loaded here -->
+                <h2 class="section-title">Browse All</h2>
+                <div class="results-grid">
+                    <!-- Sample result cards for the initial view -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom">
+        <input type="range" name="range" id="myProgressBar" min="0" value="0" max="100">
+        <div class="icons">
+            <!-- Controls will be added by JS -->
+        </div>
+        <div class="songInfo">
+            <img src="playing.gif" width="42px" alt="" id="gif"> <span id="masterSongName">Select a song to play</span>
+        </div>
+    </div>
+    
+    <script src="search.js"></script>
+    <script src="https://kit.fontawesome.com/26504e4a1f.js" crossorigin="anonymous"></script>
+</body>
+</html>

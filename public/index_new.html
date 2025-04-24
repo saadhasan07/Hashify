@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Spotify - Your favourite music is here</title>
+        <link rel="stylesheet" href="style_new.css">
+        <link rel="icon" href="logo.png" type="image/png">
+        <meta name="description" content="Listen to your favorite music with our Spotify clone player">
+        <!-- Font Awesome for icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    </head>
+<body>
+    <nav>
+        <ul>
+            <li class="brand"><img src="logo.png" alt="Spotify"> Spotify</li>
+            <li><a href="/" class="nav-link active">Home</a></li>
+            <li><a href="#" class="nav-link">Search</a></li>
+            <li><a href="#" class="nav-link">Library</a></li>
+            <li id="user-profile" class="user-profile">
+                <a href="login.html" class="nav-link login-link">Log In</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="sidebar">
+            <div class="sidebar-section">
+                <h3>YOUR LIBRARY</h3>
+                <ul class="sidebar-menu">
+                    <li><a href="#"><i class="fas fa-clock"></i> Recently Played</a></li>
+                    <li><a href="#"><i class="fas fa-heart"></i> Liked Songs</a></li>
+                    <li><a href="#"><i class="fas fa-list"></i> Your Playlists</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>PLAYLISTS</h3>
+                <ul class="playlist-menu" id="playlist-menu">
+                    <!-- Playlists will be added here -->
+                </ul>
+                <button id="create-playlist" class="create-playlist-btn">
+                    <i class="fas fa-plus"></i> Create Playlist
+                </button>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="songList">
+                <h1>Best of NCS - No Copyright Sounds</h1>
+                <div class="songItemContainer">
+                <div class="songItem">
+                    <img alt="1">
+                    <span class="songName">Loading songs...</span>
+                    <span class="songlistplay"><span class="timestamp">00:00 <i id="0" class="far songItemPlay fa-play-circle"></i></span></span>
+                </div>
+                <div class="songItem">
+                    <img alt="1">
+                    <span class="songName">Loading songs...</span>
+                    <span class="songlistplay"><span class="timestamp">00:00 <i id="1" class="far songItemPlay fa-play-circle"></i></span></span>
+                </div>
+                <div class="songItem">
+                    <img alt="1">
+                    <span class="songName">Loading songs...</span>
+                    <span class="songlistplay"><span class="timestamp">00:00 <i id="2" class="far songItemPlay fa-play-circle"></i></span></span>
+                </div>
+                <div class="songItem">
+                    <img alt="1">
+                    <span class="songName">Loading songs...</span>
+                    <span class="songlistplay"><span class="timestamp">00:00 <i id="3" class="far songItemPlay fa-play-circle"></i></span></span>
+                </div>
+                <div class="songItem">
+                    <img alt="1">
+                    <span class="songName">Loading songs...</span>
+                    <span class="songlistplay"><span class="timestamp">00:00 <i id="4" class="far songItemPlay fa-play-circle"></i></span></span>
+                </div>
+                <div class="songItem">
+                    <img alt="1">
+                    <span class="songName">Loading songs...</span>
+                    <span class="songlistplay"><span class="timestamp">00:00 <i id="5" class="far songItemPlay fa-play-circle"></i></span></span>
+                </div>
+                <div class="songItem">
+                    <img alt="1">
+                    <span class="songName">Loading songs...</span>
+                    <span class="songlistplay"><span class="timestamp">00:00 <i id="6" class="far songItemPlay fa-play-circle"></i></span></span>
+                </div>
+                <div class="songItem">
+                    <img alt="1">
+                    <span class="songName">Loading songs...</span>
+                    <span class="songlistplay"><span class="timestamp">00:00 <i id="7" class="far songItemPlay fa-play-circle"></i></span></span>
+                </div>
+                <div class="songItem">
+                    <img alt="1">
+                    <span class="songName">Loading songs...</span>
+                    <span class="songlistplay"><span class="timestamp">00:00 <i id="8" class="far songItemPlay fa-play-circle"></i></span></span>
+                </div>
+                <div class="songItem">
+                    <img alt="1">
+                    <span class="songName">Loading songs...</span>
+                    <span class="songlistplay"><span class="timestamp">00:00 <i id="9" class="far songItemPlay fa-play-circle"></i></span></span>
+                </div>
+            </div>
+        </div>
+        <div class="songBanner"></div>
+        <div class="visualizer-container" id="visualizer-container"></div>
+        
+        <!-- Visible alternative player link - HIGHLY VISIBLE ATTENTION BANNER -->
+        <div style="text-align: center; margin: 20px 0; padding: 15px; background-color: #282828; border-radius: 8px; border: 2px solid #1DB954;">
+            <p style="margin-bottom: 10px; font-size: 18px; color: #fff; font-weight: bold;">⚠️ Having trouble with icons or controls? Try these alternatives:</p>
+            <div style="display: flex; justify-content: center; gap: 15px; margin-top: 15px;">
+                <a href="/simple" style="display: inline-block; background-color: #1DB954; color: white; padding: 12px 20px; text-decoration: none; border-radius: 30px; font-weight: bold; font-size: 16px;">Advanced Player</a>
+                <a href="/minimal" style="display: inline-block; background-color: #1DB954; color: white; padding: 12px 20px; text-decoration: none; border-radius: 30px; font-weight: bold; font-size: 16px;">Basic Player</a>
+                <a href="/icon-test.html" style="display: inline-block; background-color: #333; color: white; padding: 12px 20px; text-decoration: none; border-radius: 30px; font-weight: bold; font-size: 16px;">Test Icons</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom">
+        <input type="range" name="range" id="myProgressBar" min="0" value="0" max="100">
+        <div class="icons">
+            <!-- fontawesome icons -->
+            <i class="fas fa-3x fa-step-backward" id="previous"></i>
+            <i class="far fa-3x fa-play-circle" id="masterPlay"></i>
+            <i class="fas fa-3x fa-step-forward" id="next"></i> 
+            <!-- Volume control and other controls will be added by JS -->
+            
+            <!-- Hard-coded buttons for testing -->
+            <a href="/icon-test.html" style="color: white; margin-left: 20px; display: inline-block;">Test Icons</a>
+            <button style="background: #1DB954; color: white; border: none; padding: 10px 20px; border-radius: 20px; margin-left: 10px; cursor: pointer;">⏮️ Previous</button>
+            <button style="background: #1DB954; color: white; border: none; padding: 10px 20px; border-radius: 20px; margin-left: 10px; cursor: pointer;">▶️ Play</button>
+            <button style="background: #1DB954; color: white; border: none; padding: 10px 20px; border-radius: 20px; margin-left: 10px; cursor: pointer;">⏭️ Next</button>
+        </div>
+        <div class="songInfo">
+            <img src="playing.gif" width="42px" alt="" id="gif"> <span id="masterSongName">Warriyo - Mortals [NCS Release]</span>
+        </div>
+    </div>
+    <script src="visualizer.js"></script>
+    <script src="enhanced-playlists.js"></script>
+    <script src="script_new.js"></script>
+    <script src="fallback-icons.js"></script>
+</body>
+</html>

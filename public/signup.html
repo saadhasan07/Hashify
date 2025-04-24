@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Hashify</title>
+    <link rel="icon" href="logo.png" type="image/png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Varela Round', sans-serif;
+            background-color: #121212;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        nav {
+            font-family: 'Ubuntu', sans-serif;
+        }
+        
+        nav ul {
+            display: flex;
+            align-items: center;
+            list-style-type: none;
+            height: 65px;
+            background-color: #000000;
+            color: white;
+        }
+        
+        nav ul li {
+            padding: 0 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .brand {
+            display: flex;
+            align-items: center;
+            font-weight: bolder;
+            font-size: 1.3rem;
+        }
+        
+        .brand img {
+            width: 44px;
+            padding: 0 8px;
+        }
+        
+        .main-container {
+            display: flex;
+            flex: 1;
+            padding: 0 20px;
+        }
+        
+        .auth-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            display: flex;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            background-color: #181818;
+            width: 100%;
+        }
+        
+        .auth-form {
+            padding: 40px;
+            width: 50%;
+        }
+        
+        .auth-form h1 {
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            color: white;
+        }
+        
+        .auth-form p {
+            margin-bottom: 20px;
+            color: #b3b3b3;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #b3b3b3;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 4px;
+            border: 1px solid #333;
+            background-color: #333;
+            color: white;
+            font-size: 16px;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #1DB954;
+        }
+        
+        .auth-btn {
+            display: inline-block;
+            padding: 14px 30px;
+            background-color: #1DB954;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        
+        .auth-btn:hover {
+            background-color: #1ed760;
+            transform: scale(1.05);
+        }
+        
+        .auth-links {
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .auth-links a {
+            color: #1DB954;
+            text-decoration: none;
+        }
+        
+        .auth-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .social-login {
+            margin: 24px 0;
+            text-align: center;
+        }
+        
+        .social-login p {
+            margin-bottom: 16px;
+            color: #b3b3b3;
+        }
+        
+        .social-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            color: white;
+            gap: 8px;
+        }
+        
+        .google-btn {
+            background-color: #DB4437;
+        }
+        
+        .facebook-btn {
+            background-color: #4267B2;
+        }
+        
+        .twitter-btn {
+            background-color: #1DA1F2;
+        }
+        
+        .social-btn:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
+        }
+        
+        .auth-hero {
+            width: 50%;
+            background-image: linear-gradient(to right, rgba(0,0,0,0.7), rgba(0,0,0,0.3)), url('bg.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 40px;
+            position: relative;
+        }
+        
+        .auth-hero h2 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .auth-hero p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            color: #b3b3b3;
+            max-width: 400px;
+        }
+        
+        .auth-hero .features {
+            margin-top: 20px;
+        }
+        
+        .auth-hero .feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .auth-hero .feature i {
+            color: #1DB954;
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .auth-hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to top, rgba(24,24,24,1), rgba(24,24,24,0));
+            pointer-events: none;
+        }
+        
+        @media (max-width: 900px) {
+            .auth-container {
+                flex-direction: column;
+            }
+            
+            .auth-form, .auth-hero {
+                width: 100%;
+            }
+            
+            .auth-hero {
+                min-height: 300px;
+                order: -1; /* Put hero on top on mobile */
+            }
+        }
+        
+        .brand a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li class="brand"><a href="/"><img src="logo.png" alt="Hashify"> Hashify</a></li>
+        </ul>
+    </nav>
+    
+    <div class="main-container">
+        <div class="auth-container">
+            <div class="auth-form">
+                <h1>Sign up for free</h1>
+                <p>Get unlimited access to songs and podcasts with occasional ads. No credit card needed.</p>
+                
+                <form id="signup-form">
+                    <div class="form-group">
+                        <label for="email">Email address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="display-name">What should we call you?</label>
+                        <input type="text" id="display-name" name="display-name" placeholder="Profile name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    
+                    <button type="submit" class="auth-btn">SIGN UP</button>
+                </form>
+                
+                <div class="social-login">
+                    <p>Or sign up with:</p>
+                    <div class="social-buttons">
+                        <button id="google-signup" class="social-btn google-btn">
+                            <i class="fab fa-google"></i>
+                            <span>Google</span>
+                        </button>
+                        <button id="facebook-signup" class="social-btn facebook-btn">
+                            <i class="fab fa-facebook-f"></i>
+                            <span>Facebook</span>
+                        </button>
+                        <button id="twitter-signup" class="social-btn twitter-btn">
+                            <i class="fab fa-twitter"></i>
+                            <span>Twitter</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="auth-links">
+                    <p>Already have an account? <a href="login.html">Log in</a></p>
+                </div>
+            </div>
+            
+            <div class="auth-hero">
+                <h2>Music for everyone</h2>
+                <p>Millions of songs. No credit card needed.</p>
+                
+                <div class="features">
+                    <div class="feature">
+                        <i class="fas fa-music"></i>
+                        <span>Stream songs and podcasts</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-list"></i>
+                        <span>Create and manage playlists</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-heart"></i>
+                        <span>Save your favorite tracks</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('signup-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const username = document.getElementById('username').value;
+            const displayName = document.getElementById('display-name').value;
+            const password = document.getElementById('password').value;
+            
+            // Simple client-side user registration (replace with server auth in a real app)
+            // In a real application, you would make an API call to your server
+            const userInfo = {
+                email: email,
+                username: username,
+                displayName: displayName,
+                isLoggedIn: true,
+                loginMethod: 'email'
+            };
+            
+            // Store user info in localStorage
+            localStorage.setItem('hashifyUser', JSON.stringify(userInfo));
+            
+            // Redirect to home page
+            window.location.href = '/';
+        });
+        
+        // Social signup buttons
+        document.getElementById('google-signup').addEventListener('click', function() {
+            // In a real app, this would redirect to Google OAuth flow
+            const userInfo = {
+                email: 'user@gmail.com',
+                username: 'google_user',
+                displayName: 'Google User',
+                isLoggedIn: true,
+                loginMethod: 'google'
+            };
+            
+            localStorage.setItem('hashifyUser', JSON.stringify(userInfo));
+            
+            // Show success message
+            alert('Signed up with Google successfully!');
+            window.location.href = '/';
+        });
+        
+        document.getElementById('facebook-signup').addEventListener('click', function() {
+            // In a real app, this would redirect to Facebook OAuth flow
+            const userInfo = {
+                email: 'user@facebook.com',
+                username: 'facebook_user',
+                displayName: 'Facebook User',
+                isLoggedIn: true,
+                loginMethod: 'facebook'
+            };
+            
+            localStorage.setItem('hashifyUser', JSON.stringify(userInfo));
+            
+            // Show success message
+            alert('Signed up with Facebook successfully!');
+            window.location.href = '/';
+        });
+        
+        document.getElementById('twitter-signup').addEventListener('click', function() {
+            // In a real app, this would redirect to Twitter OAuth flow
+            const userInfo = {
+                email: 'user@twitter.com',
+                username: 'twitter_user',
+                displayName: 'Twitter User',
+                isLoggedIn: true,
+                loginMethod: 'twitter'
+            };
+            
+            localStorage.setItem('hashifyUser', JSON.stringify(userInfo));
+            
+            // Show success message
+            alert('Signed up with Twitter successfully!');
+            window.location.href = '/';
+        });
+    </script>
+    
+    <script src="https://kit.fontawesome.com/26504e4a1f.js" crossorigin="anonymous"></script>
+</body>
+</html>

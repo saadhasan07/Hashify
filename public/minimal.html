@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Minimal Music Player</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #121212;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .player {
+            width: 300px;
+            background-color: #282828;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+        .song-info {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        button {
+            background-color: #1DB954;
+            color: white;
+            border: none;
+            margin: 0 10px;
+            padding: 10px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #1ed760;
+        }
+        input[type="range"] {
+            width: 100%;
+            margin: 10px 0;
+        }
+        .cover {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 5px;
+        }
+        .song-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .song-artist {
+            font-size: 14px;
+            color: #b3b3b3;
+        }
+        .progress {
+            margin-top: 20px;
+        }
+        .time {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #b3b3b3;
+        }
+        .songs {
+            margin-top: 30px;
+            width: 300px;
+        }
+        .song-item {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .song-item:hover {
+            background-color: #333;
+        }
+        .song-item.active {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Minimal Spotify Player</h1>
+    
+    <div class="player">
+        <div class="cover" id="cover" style="background-image: url('/covers/1.jpg')"></div>
+        <div class="song-info">
+            <div class="song-title" id="title">Warriyo - Mortals [NCS Release]</div>
+            <div class="song-artist" id="artist">NCS</div>
+        </div>
+        
+        <div class="progress">
+            <input type="range" id="progress" min="0" max="100" value="0">
+            <div class="time">
+                <span id="current-time">0:00</span>
+                <span id="total-time">0:00</span>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button id="prev">⏮️</button>
+            <button id="play">▶️</button>
+            <button id="next">⏭️</button>
+        </div>
+    </div>
+    
+    <div class="songs">
+        <h3>Songs</h3>
+        <div id="song-list">
+            <!-- Song items will be added here -->
+        </div>
+    </div>
+    
+    <script>
+        // Songs data
+        const songs = [
+            {
+                title: "Warriyo - Mortals [NCS Release]",
+                artist: "NCS",
+                src: "/songs/1.mp3",
+                cover: "/covers/1.jpg"
+            },
+            {
+                title: "Cielo - Huma-Huma",
+                artist: "NCS",
+                src: "/songs/2.mp3",
+                cover: "/covers/2.jpg"
+            },
+            {
+                title: "DEAF KEV - Invincible [NCS Release]",
+                artist: "NCS",
+                src: "/songs/3.mp3",
+                cover: "/covers/3.jpg"
+            },
+            {
+                title: "Different Heaven & EH!DE - My Heart",
+                artist: "NCS",
+                src: "/songs/4.mp3",
+                cover: "/covers/4.jpg"
+            },
+            {
+                title: "Janji-Heroes-Tonight-feat-Johnning",
+                artist: "NCS",
+                src: "/songs/5.mp3",
+                cover: "/covers/5.jpg"
+            }
+        ];
+        
+        // DOM elements
+        const playButton = document.getElementById('play');
+        const prevButton = document.getElementById('prev');
+        const nextButton = document.getElementById('next');
+        const progressBar = document.getElementById('progress');
+        const currentTimeDisplay = document.getElementById('current-time');
+        const totalTimeDisplay = document.getElementById('total-time');
+        const titleDisplay = document.getElementById('title');
+        const artistDisplay = document.getElementById('artist');
+        const coverDisplay = document.getElementById('cover');
+        const songListContainer = document.getElementById('song-list');
+        
+        // Create audio element
+        const audio = new Audio();
+        
+        // Player state
+        let currentSongIndex = 0;
+        let isPlaying = false;
+        
+        // Initialize
+        function init() {
+            loadSong(currentSongIndex);
+            renderSongList();
+            setupEventListeners();
+        }
+        
+        // Load a song
+        function loadSong(index) {
+            const song = songs[index];
+            audio.src = song.src;
+            titleDisplay.textContent = song.title;
+            artistDisplay.textContent = song.artist;
+            coverDisplay.style.backgroundImage = `url('${song.cover}')`;
+            updateActiveSong();
+        }
+        
+        // Play/pause toggle
+        function togglePlay() {
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
+                playButton.textContent = '▶️';
+            } else {
+                audio.play()
+                    .then(() => {
+                        isPlaying = true;
+                        playButton.textContent = '⏸️';
+                    })
+                    .catch(error => console.error('Error playing audio:', error));
+            }
+        }
+        
+        // Previous song
+        function prevSong() {
+            currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+            loadSong(currentSongIndex);
+            if (isPlaying) {
+                audio.play()
+                    .catch(error => console.error('Error playing audio:', error));
+            }
+        }
+        
+        // Next song
+        function nextSong() {
+            currentSongIndex = (currentSongIndex + 1) % songs.length;
+            loadSong(currentSongIndex);
+            if (isPlaying) {
+                audio.play()
+                    .catch(error => console.error('Error playing audio:', error));
+            }
+        }
+        
+        // Update progress bar
+        function updateProgress() {
+            if (audio.duration) {
+                const progress = (audio.currentTime / audio.duration) * 100;
+                progressBar.value = progress;
+                
+                // Update time displays
+                currentTimeDisplay.textContent = formatTime(audio.currentTime);
+                totalTimeDisplay.textContent = formatTime(audio.duration);
+            }
+        }
+        
+        // Format time to MM:SS
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+        
+        // Set progress based on user input
+        function setProgress() {
+            const newTime = (progressBar.value / 100) * audio.duration;
+            audio.currentTime = newTime;
+        }
+        
+        // Render song list
+        function renderSongList() {
+            songListContainer.innerHTML = '';
+            songs.forEach((song, index) => {
+                const songItem = document.createElement('div');
+                songItem.className = `song-item${index === currentSongIndex ? ' active' : ''}`;
+                songItem.innerHTML = `${song.title}`;
+                songItem.addEventListener('click', () => {
+                    currentSongIndex = index;
+                    loadSong(currentSongIndex);
+                    togglePlay();
+                });
+                songListContainer.appendChild(songItem);
+            });
+        }
+        
+        // Update which song is active in the list
+        function updateActiveSong() {
+            document.querySelectorAll('.song-item').forEach((item, index) => {
+                if (index === currentSongIndex) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+        
+        // Setup event listeners
+        function setupEventListeners() {
+            playButton.addEventListener('click', togglePlay);
+            prevButton.addEventListener('click', prevSong);
+            nextButton.addEventListener('click', nextSong);
+            
+            progressBar.addEventListener('change', setProgress);
+            
+            audio.addEventListener('timeupdate', updateProgress);
+            audio.addEventListener('ended', nextSong);
+            
+            // Keyboard shortcuts
+            document.addEventListener('keydown', e => {
+                if (e.code === 'Space') {
+                    e.preventDefault();
+                    togglePlay();
+                } else if (e.code === 'ArrowLeft') {
+                    prevSong();
+                } else if (e.code === 'ArrowRight') {
+                    nextSong();
+                }
+            });
+        }
+        
+        // Start the player
+        init();
+    </script>
+</body>
+</html>
