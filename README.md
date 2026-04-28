@@ -63,10 +63,21 @@ Creates real-time audio visualizations with multiple modes: bars, circles, waves
 - Drag-and-drop playlist management
 - Mobile-responsive design
 
-## Running the Project
-1. Install Node.js dependencies: `npm install`
-2. Start the server: `node server.js`
-3. Open browser to `http://localhost:5000`
+## Public Preview on GitHub
+This repository now includes a GitHub Pages workflow that publishes the static app from `public/` whenever changes are pushed to `main`.
+
+After GitHub Pages is enabled in the repository settings, the public preview will be available at:
+
+`https://saadhasan07.github.io/Hashify/`
+
+## Running the Project Locally
+1. Install Node.js dependencies if needed: `npm install`
+2. Serve the static app from the `public/` folder
+3. Open the browser to a local address such as `http://localhost:4173`
+
+One simple option is:
+
+`python3 -m http.server 4173 --directory public`
 
 ## Notes on Rebranding
 This project was completely rebranded from "Spotify" to "Hashify" with these changes:
