@@ -70,6 +70,8 @@ After GitHub Pages is enabled in the repository settings, the public preview wil
 
 `https://saadhasan07.github.io/Hashify/`
 
+GitHub Pages is now configured to deploy with GitHub Actions.
+
 ## Running the Project Locally
 1. Install Node.js dependencies if needed: `npm install`
 2. Serve the static app from the `public/` folder
