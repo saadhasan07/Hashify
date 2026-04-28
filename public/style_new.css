@@ -33,7 +33,7 @@ nav ul li {
 }
 
 nav ul li:not(.brand):hover {
-    color: #1DB954; /* Spotify green */
+    color: #1DB954;
 }
 
 .brand img {
@@ -307,13 +307,15 @@ nav ul li:not(.brand):hover {
 .bottom {
     position: sticky;
     bottom: 0;
-    height: 130px;
+    min-height: 130px;
     background-color: #282828;
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column; 
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px 20px;
     box-shadow: 0 -5px 10px rgba(0,0,0,0.2);
 }
 
@@ -325,9 +327,12 @@ nav ul li:not(.brand):hover {
 }
 
 .icons {
-    margin-top: 14px;
     display: flex;
     align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    width: 100%;
 }
 
 .icons i {
@@ -337,11 +342,11 @@ nav ul li:not(.brand):hover {
 }
 
 .icons i:hover {
-    color: #1DB954; /* Spotify green */
+    color: #1DB954;
 }
 
 #myProgressBar {
-    width: 80vw; 
+    width: min(900px, 100%);
     cursor: pointer;
     appearance: none;
     background: #4d4d4d;
@@ -355,7 +360,7 @@ nav ul li:not(.brand):hover {
     appearance: none;
     width: 12px;
     height: 12px;
-    background: #1DB954; /* Spotify green */
+    background: #1DB954;
     border-radius: 50%;
     cursor: pointer;
 }
@@ -368,14 +373,14 @@ nav ul li:not(.brand):hover {
     border-radius: 5px;
     height: 5px;
     outline: none;
-    margin-left: 20px;
+    margin-left: 0;
 }
 
 .volume-control::-webkit-slider-thumb {
     appearance: none;
     width: 12px;
     height: 12px;
-    background: #1DB954; /* Spotify green */
+    background: #1DB954;
     border-radius: 50%;
     cursor: pointer;
 }
@@ -426,7 +431,7 @@ nav ul li:not(.brand):hover {
 .songList h1 {
     margin-bottom: 20px;
     font-size: 2rem;
-    color: #1DB954; /* Spotify green */
+    color: #1DB954;
     text-shadow: 0 2px 5px rgba(0,0,0,0.5);
 }
 
@@ -476,15 +481,18 @@ nav ul li:not(.brand):hover {
 }
 
 .timestamp i:hover {
-    color: #1DB954; /* Spotify green */
+    color: #1DB954;
 }
 
 .songInfo {
-    position: absolute;
-    left: 10vw;
+    position: static;
     font-family: 'Varela Round', sans-serif;
     display: flex;
     align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    text-align: center;
+    flex-wrap: wrap;
 }
 
 .songInfo img {
@@ -496,9 +504,12 @@ nav ul li:not(.brand):hover {
 #masterSongName {
     margin-left: 10px;
     font-size: 1.2rem;
+    max-width: min(100%, 500px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-/* Media Queries for Responsiveness */
 @media only screen and (max-width: 1100px) {
     .container {
         width: 90%;
@@ -510,21 +521,21 @@ nav ul li:not(.brand):hover {
     .songItem {
         padding: 0 5px;
     }
-    
+
     .songItem img {
         width: 35px;
         height: 35px;
         margin: 0 10px;
     }
-    
+
     .timestamp {
         margin: 0 10px;
     }
-    
+
     .bottom {
-        height: 150px;
+        min-height: 150px;
     }
-    
+
     .icons i {
         font-size: 2rem !important;
     }
@@ -533,46 +544,50 @@ nav ul li:not(.brand):hover {
 @media only screen and (max-width: 700px) {
     .container {
         width: 95%;
-        padding: 15px;
+        padding: 0;
+        flex-direction: column;
     }
-    
-    .songInfo {
-        left: 5vw;
+
+    .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #333;
     }
-    
+
     #masterSongName {
         font-size: 1rem;
-        max-width: 150px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        max-width: 220px;
     }
-    
+
     .songItem {
         height: 45px;
     }
 }
 
 @media only screen and (max-width: 500px) {
-    .songInfo {
-        display: none;
-    }
-    
     .container {
         width: 100%;
         border-radius: 0;
         margin: 10px auto;
     }
-    
+
     nav ul li:not(.brand) {
         display: none;
     }
-    
+
     .songList h1 {
         font-size: 1.5rem;
     }
-    
+
     .songItemContainer {
         margin-top: 20px;
+    }
+
+    .bottom {
+        padding: 14px;
+    }
+
+    .icons {
+        gap: 8px;
     }
 }
