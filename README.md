@@ -1,7 +1,12 @@
 # Hashify Music Player
 
+## Live Preview
+[Open Hashify Preview](https://saadhasan07.github.io/Hashify/)
+
+Hashify is a music player preview built with HTML, CSS, and JavaScript. The main repo preview is published with GitHub Pages so visitors can open the project directly from the repository.
+
 ## Project Overview
-Hashify is a modern music player application built with HTML, CSS, and JavaScript. It offers a responsive design and multiple player interfaces, featuring playlist management, search capabilities, audio visualization, and user authentication.
+This project includes a simplified homepage player, a search page, and static assets for songs and covers.
 
 ## Features
 - **Multiple Player Interfaces**: Original, Simple, Minimal, Standalone, SVG, and Unicode players
@@ -64,9 +69,9 @@ Creates real-time audio visualizations with multiple modes: bars, circles, waves
 - Mobile-responsive design
 
 ## Public Preview on GitHub
-This repository now includes a GitHub Pages workflow that publishes the static app from `public/` whenever changes are pushed to `main`.
+This repository publishes the static app from `public/` with GitHub Pages.
 
-After GitHub Pages is enabled in the repository settings, the public preview will be available at:
+Public preview:
 
 `https://saadhasan07.github.io/Hashify/`
 
